@@ -1,6 +1,6 @@
-import {GetterTree, MutationTree} from 'vuex'
-import {Column} from '~/types'
-import {PlayerColor} from '~/enums/player-color.enum'
+import { GetterTree, MutationTree } from 'vuex'
+import { Column } from '~/types'
+import { PlayerColor } from '~/enums/player-color.enum'
 
 export const FIELD_SIZE = 7
 
@@ -34,6 +34,50 @@ export const state = (): RootState => ({
 
 export const getters: GetterTree<RootState, RootState> = {
   [GettersType.GET_WINNER]: (state): PlayerColor | null => {
+    const directions = [
+      { x: 0, y: -1 },
+      { x: 1, y: -1 },
+      { x: 1, y: 0 },
+      { x: 1, y: 1 },
+      { x: 0, y: 1 },
+      { x: -1, y: 1 },
+      { x: -1, y: 0 },
+      { x: -1, y: -1 }
+    ]
+
+    const checkDirection = (x: number, y: number, direction: { x: number, y: number }, step = 2): boolean => {
+      if (x + direction.x < 0 || x + direction.x >= FIELD_SIZE) {
+        return false
+      }
+
+      if (y + direction.y < 0 || y + direction.y >= FIELD_SIZE) {
+        return false
+      }
+
+      if (!state.field[x + direction.x].points[y + direction.y].color) {
+        return false
+      }
+
+      if (state.field[x].points[y].color !== state.field[x + direction.x].points[y + direction.y].color) {
+        return false
+      }
+
+      if (!step) {
+        return true
+      }
+
+      return checkDirection(x + direction.x, y + direction.y, direction, --step)
+    }
+
+    for (let x = 0; x < state.field.length; x++) {
+      for (let y = 0; y < state.field[x].points.length; y++) {
+
+        if (directions.some(direction => checkDirection(x, y, direction))) {
+          return state.field[x].points[y].color
+        }
+      }
+    }
+
     return null
   }
 }
