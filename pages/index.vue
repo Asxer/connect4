@@ -1,8 +1,21 @@
 <template>
   <main>
-    <h1>Connect four</h1>
-    <h3>Current player: {{ currentPlayerColor }}</h3>
-    <h3>Winner: {{ winnerColor }}</h3>
+    <header class="header">
+      <template v-if="winnerColor">
+        <h3 class="header-winner">Winner</h3>
+        <div class="cell">
+          <div class="point" :class="`point-${winnerColor}`"></div>
+        </div>
+      </template>
+
+      <template v-else>
+        <h3 class="header-player">Current player</h3>
+        <div class="cell">
+          <div class="point" :class="`point-${currentPlayerColor}`"></div>
+        </div>
+      </template>
+    </header>
+
     <div class="field">
       <column-component
         v-for="(column, index) in field"
