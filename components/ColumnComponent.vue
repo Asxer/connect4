@@ -17,15 +17,15 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations } from 'vuex'
 import { GettersType, MutationType } from '~/store'
 import { Column } from '~/types'
 import PointComponent from '~/components/PointComponent.vue'
+import {PlayerColor} from "~/enums/player-color.enum";
 
 @Component({
   components: { PointComponent },
   methods: mapMutations({ makeStep: MutationType.MAKE_STEP }),
-  computed: mapGetters({ winnerColor: GettersType.GET_WINNER })
 })
 export default class ColumnComponent extends Vue {
   @Prop() columnIndex!: number;
@@ -33,6 +33,10 @@ export default class ColumnComponent extends Vue {
 
   get canAddChip () {
     return !this.column.isFull && !this.winnerColor
+  }
+
+  get winnerColor (): PlayerColor | null {
+    return this.$store.getters[GettersType.GET_WINNER]
   }
 }
 </script>
