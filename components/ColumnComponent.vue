@@ -20,8 +20,8 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { mapMutations } from 'vuex'
 import { GettersType, MutationType } from '~/store'
 import { Column } from '~/types'
+import { PlayerColor } from "~/enums/player-color.enum";
 import PointComponent from '~/components/PointComponent.vue'
-import {PlayerColor} from "~/enums/player-color.enum";
 
 @Component({
   components: { PointComponent },
