@@ -7,13 +7,34 @@ html, body {
   background: $body-bg;
 }
 
-input, button { outline: none; }
+input, button {
+  outline: none;
+}
 
 .header {
-  display: flex; flex-direction: row; justify-content: center; align-items: center; color: white; font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
 }
-.field { display: flex; flex-direction: row; justify-content: center; align-items: center;}
-.cell { min-height: $cell-size; min-width: $cell-size; max-height: $cell-size; max-width: $cell-size; margin: 1rem;}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell {
+  min-height: $cell-size;
+  min-width: $cell-size;
+  max-height: $cell-size;
+  max-width: $cell-size;
+  margin: 0.5rem;
+}
+
 .point {
   background-position: center;
   background-size: cover;
@@ -21,8 +42,27 @@ input, button { outline: none; }
   min-width: $cell-size;
   min-height: $cell-size;
 
-  &-red { background-image: url(/images/red-chip.png) }
-  &-yellow { background-image: url(/images/yellow-chip.png) }
-  &-null { background-color: white; border-radius: 50%; }
+  &-red {
+    background-image: url(/images/red-chip.png)
+  }
+
+  &-yellow {
+    background-image: url(/images/yellow-chip.png)
+  }
+
+  &-null {
+    background-color: white;
+    border-radius: 50%;
+  }
 }
 
+.arrow-down {
+  border: solid white;
+  border-width: 0 0.5rem 0.5rem 0;
+  display: inline-block;
+  padding: 0.5rem;
+  cursor: pointer;
+  margin: 0 0.7rem;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}

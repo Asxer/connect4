@@ -1,7 +1,7 @@
 <template>
   <div class="column">
     <div class="cell">
-      <button v-if="canAddChip" @click="makeStep(columnIndex)">V</button>
+      <i v-if="canAddChip" @click="makeStep(columnIndex)" class="arrow-down"></i>
     </div>
 
     <div v-for="(point, index) in column.points"
