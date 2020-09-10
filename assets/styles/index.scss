@@ -1,0 +1,14 @@
+@import "variables";
+
+html, body {
+  font-size: 16px;
+  margin: 0;
+  font-family: Roboto, Arial, sans-serif;
+  background: $body-bg;
+}
+
+input, button { outline: none; }
+
+.field { display: flex; flex-direction: row; justify-content: center; align-items: center;}
+.cell { min-height: 2rem; min-width: 2rem; }
+

@@ -1,28 +1,58 @@
-import type { Context } from '@nuxt/types'
-import type { GetterTree, ActionTree, MutationTree } from 'vuex'
+import {GetterTree, MutationTree} from 'vuex'
+import {Column} from '~/types'
+import {PlayerColor} from '~/enums/player-color.enum'
 
-export interface RootState {
-  description: string
-}
+export const FIELD_SIZE = 7
 
-export const state = (): RootState => ({
-  description: "I'm defined as an initial state"
-})
-
-export const getters: GetterTree<RootState, RootState> = {
-  reversedName: (state): string => state.description.split('').reverse().join('')
+export const GettersType = {
+  GET_WINNER: 'getWinner'
 }
 
 export const MutationType = {
-  CHANGE_DESCRIPTION: 'changeDescription'
+  MAKE_STEP: 'makeStep'
+}
+
+export interface RootState {
+  field: Column[],
+  currentPlayerColor: PlayerColor,
+  winnerColor: PlayerColor | null,
+}
+
+export const state = (): RootState => ({
+  field: (new Array(FIELD_SIZE))
+    .fill({})
+    .map(() => ({
+      occupied: 0,
+      isFull: false,
+      points: (new Array(FIELD_SIZE))
+        .fill({})
+        .map(() => ({ color: null }))
+    })),
+  currentPlayerColor: PlayerColor.Red,
+  winnerColor: null
+})
+
+export const getters: GetterTree<RootState, RootState> = {
+  [GettersType.GET_WINNER]: (state): PlayerColor | null => {
+    return null
+  }
 }
 
 export const mutations: MutationTree<RootState> = {
-  [MutationType.CHANGE_DESCRIPTION]: (state, newDescription: string) => { state.description = newDescription }
-}
+  [MutationType.MAKE_STEP]: (state: RootState, columnIndex: number) => {
+    const column = state.field[columnIndex]
 
-export const actions: ActionTree<RootState, RootState> = {
-  nuxtServerInit ({ commit }, _context: Context) {
-    commit(MutationType.CHANGE_DESCRIPTION, "I'm defined by server side")
-  }
+    if (column.occupied >= column.points.length) {
+      throw new Error('Column is full')
+    }
+
+    const lowerPosition = column.points.length - column.occupied - 1
+
+    column.points[lowerPosition].color = state.currentPlayerColor
+
+    column.occupied++
+    column.isFull = (column.occupied >= column.points.length)
+
+    state.currentPlayerColor = state.currentPlayerColor === PlayerColor.Red ? PlayerColor.Yellow : PlayerColor.Red
+  },
 }
