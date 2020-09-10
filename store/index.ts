@@ -98,5 +98,5 @@ export const mutations: MutationTree<RootState> = {
     column.isFull = (column.occupied >= column.points.length)
 
     state.currentPlayerColor = state.currentPlayerColor === PlayerColor.Red ? PlayerColor.Yellow : PlayerColor.Red
-  },
+  }
 }
