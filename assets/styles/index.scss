@@ -10,5 +10,15 @@ html, body {
 input, button { outline: none; }
 
 .field { display: flex; flex-direction: row; justify-content: center; align-items: center;}
-.cell { min-height: 2rem; min-width: 2rem; }
+.cell { min-height: $cell-size; min-width: $cell-size; margin: 1rem;}
+.point {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-width: $cell-size;
+  min-height: $cell-size;
+
+  &-red {background-image: url(/images/red-chip.png)}
+  &-yellow {background-image: url(/images/yellow-chip.png)}
+}
 

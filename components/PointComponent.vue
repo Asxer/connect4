@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <label class="point" :style="{color: point.color}">O</label>
-  </div>
+  <div class="point" :class="`point-${point.color}`"></div>
 </template>
 
 <script lang="ts">

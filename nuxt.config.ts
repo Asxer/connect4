@@ -11,11 +11,11 @@ const config: NuxtConfig = {
   ],
   env: {},
   head: {
-    title: 'nuxt-community/typescript-template',
+    title: 'Connect four',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'A boilerplate to start a Nuxt+TS project quickly' }
+      { hid: 'description', name: 'description', content: 'Test game' }
     ],
     link: []
   },
